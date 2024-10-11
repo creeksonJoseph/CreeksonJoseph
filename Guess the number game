@@ -1,0 +1,39 @@
+#Introduction to the game
+import random
+
+print('welcome to guess the number game by creekson joseph')
+
+#creating a function
+def oneRound():
+
+    #choose a random target
+    randomNumber=random.randrange(1,51)
+
+    #initialise a guess counter
+    numberOfGuesses=1
+    x = int(input('Enter the number of guesses you want to try'))
+
+    #creating the loop
+    while True:
+        guessedNumber= int(input('Guess a number from one to 50 '))
+        numberOfGuesses = numberOfGuesses + 1
+        if guessedNumber==randomNumber:
+            print('you have guessed correctly')
+        elif guessedNumber<randomNumber:
+            print('your guess is low than the correct number')
+        else :
+            print('your guess is high than the correct number')
+        if numberOfGuesses >x:
+            print('Sorry, you did not get it in',x,'guesses')
+            print('The number was:',randomNumber)
+            print('game finished')
+            break
+while True:
+    oneRound()
+    goAgain = input('Press Enter to quit, or any key to continue: ')
+    if goAgain =='':
+        break  # user said they want to quit
+print('Game finished')
+
+
+
