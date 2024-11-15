@@ -1,0 +1,76 @@
+def rock_paper_scissor():
+
+    import random
+
+    print("THE FOLLOWINGS ARE THE RULES")
+    print()
+    print("Rock vs Paper = Paper wins\n"
+        +"Rock vs Scissors = Rock wins\n"
+        +"Paper vs Scissors = Scissors wins")
+    print()
+    print("1 represents Rock\n"
+        +"2 represents Paper\n"
+        +"3 represents Scissors")
+    print()
+    number_of_times=1
+    while True:
+        #To get the choice of the two players
+        comp_choice=random.randint(1,3)
+        user_choice=int(input("Enter your choice"))
+        print()
+        
+        while user_choice>3 or user_choice<1:
+            user_choice=int(input("please enter a value between 1 and 3  "))
+        
+        #Assigning values to the numbers
+        # 1-COMPUTER'S ANSWERS
+        if comp_choice==1:
+            comp_ans='rock'
+        elif comp_choice==2:
+            comp_ans='paper'
+        else:
+            comp_ans='scissors'
+        
+        print("Computer's choice is",comp_ans)
+        print()
+        # 2-USER'S ANSWER
+        
+        if user_choice==1:
+            user_ans='rock'
+        elif user_choice==2:
+            user_ans='paper'
+        else:
+            user_ans='scissors'
+        
+        print(comp_ans,"Vs",user_ans)    
+        
+        #Determine the winner
+        if (comp_ans=='paper' and user_ans=="rock") or (comp_ans=='scissors' and user_ans=="paper") or (comp_ans=="rock" and user_ans=="scissors"):
+            winner='computer'
+        elif (user_ans=='paper' and comp_ans=="rock") or (user_ans=='scissors' and comp_ans=="paper") or (user_ans=="rock" and comp_ans=="scissors"):
+            winner='user'
+        elif comp_ans==user_ans:
+            winner="Tie"
+        
+        #Tell the user the outcome
+        if winner=='computer':
+            print("You have lost")
+        elif winner=='user':
+            print('You have won')
+        else:
+            print("It was a Tie!!")
+            
+            
+        number_of_times+=1
+            
+        if number_of_times>5:
+            break
+        
+while True:
+    rock_paper_scissor()
+    ans=input("Do you want to play again?? press enter to Quit the game or any key to replay")
+    if ans == '':
+            break
+print('THE END\n'
+      +"Thank you for playing\n"
+      +"Developed by creekson & Jimmy")
