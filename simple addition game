@@ -1,0 +1,41 @@
+import random
+
+def addition_maths_game():
+    number_of_questions=1
+        
+    current_score=0
+        
+    while True:
+        try:
+            first_value=random.randint(1,10)
+            second_value=random.randint(1,10)
+            print("What is",first_value,'+', second_value)
+            
+            correct_answer=first_value+second_value
+            
+        
+            ans=int(input())
+                
+                
+            if ans==correct_answer:
+                print("congratulations that's the answer")
+                current_score+=1
+            else:
+                print("Oops thats not correct\n"
+                    +"the correct answer is",correct_answer)
+        except ValueError:
+             print("Please enter a valid number.")
+        
+        questions_remaining=10-number_of_questions
+        print(questions_remaining,"Questions remaining")
+        print("Your current score is",current_score)
+        number_of_questions+=1
+        if number_of_questions>10:
+            break
+        
+
+
+
+
+
+
