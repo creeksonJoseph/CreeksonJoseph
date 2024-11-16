@@ -1,0 +1,42 @@
+import requests
+
+API_KEY = 'e8d6a5f49485c29bd989da15d2b6d4f1'  
+
+def get_info(city):
+    URL = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&mode=xml&APPID=' + API_KEY + '&units=metric'
+    print("URL request is: " + URL)
+    print()
+    
+    # Make the request and save the response as a string.
+    response = requests.get(URL)
+    response_string = response.text  # Use .text to get the response as a string
+    
+   
+    
+    prefix_string = '<temperature value="'
+    # Calculate the start and end index of the temperature value
+    prefix_string_length = len(prefix_string)
+    prefix_string_pos = response_string.index(prefix_string)
+    start = prefix_string_pos + prefix_string_length
+    end = response_string.index('"', start)
+    
+    # Extract the temperature and return it
+    degrees_c = response_string[start: end]  # This is in degrees Celsius
+    degrees_c = float(degrees_c)
+    return degrees_c
+
+while True:
+    city = input('What city would you like the temperature of? ')
+    if city == '':
+        break
+    temp_c = get_info(city)
+    print(f'The temperature in {city} is {temp_c:.2f}°C')
+    print()
+    
+    x=input("Dou you wish to continue\n"
+            +"Press any key to continue\n"
+            +"press ENTER  stop")
+    
+    if x =="":
+        break
+print('Bye')
