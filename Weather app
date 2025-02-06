@@ -1,42 +1,48 @@
 import requests
+import tkinter as tk
+from tkinter import messagebox
 
-API_KEY = 'xxxxxx'  
+# Function to get weather data
+def get_weather(city):
+    api_key = "xxxxxxxxxxxx"
+    base_url = "http://api.openweathermap.org/data/2.5/weather"
+    complete_url = f"{base_url}?q={city}&appid={api_key}&units=metric"
+    
+    response = requests.get(complete_url)
+    data = response.json()
+    
+    if data["cod"] != "404":
+        main = data["main"]
+        weather = data["weather"][0]
+        
+        temperature = main["temp"]
+        pressure = main["pressure"]
+        humidity = main["humidity"]
+        weather_description = weather["description"]
+        
+        return (f"Temperature: {temperature}°C\n"
+                f"Atmospheric Pressure: {pressure} hPa\n"
+                f"Humidity: {humidity}%\n"
+                f"Weather Description: {weather_description.capitalize()}")
+    else:
+        return "City Not Found"
 
-def get_info(city):
-    URL = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&mode=xml&APPID=' + API_KEY + '&units=metric'
-    print("URL request is: " + URL)
-    print()
-    
-    # Make the request and save the response as a string.
-    response = requests.get(URL)
-    response_string = response.text  # Use .text to get the response as a string
-    
-   
-    
-    prefix_string = '<temperature value="'
-    # Calculate the start and end index of the temperature value
-    prefix_string_length = len(prefix_string)
-    prefix_string_pos = response_string.index(prefix_string)
-    start = prefix_string_pos + prefix_string_length
-    end = response_string.index('"', start)
-    
-    # Extract the temperature and return it
-    degrees_c = response_string[start: end]  # This is in degrees Celsius
-    degrees_c = float(degrees_c)
-    return degrees_c
+# Function to display weather
+def show_weather():
+    city = city_entry.get()
+    weather_info = get_weather(city)
+    messagebox.showinfo("Weather Information", weather_info)
 
-while True:
-    city = input('What city would you like the temperature of? ')
-    if city == '':
-        break
-    temp_c = get_info(city)
-    print(f'The temperature in {city} is {temp_c:.2f}°C')
-    print()
-    
-    x=input("Dou you wish to continue\n"
-            +"Press any key to continue\n"
-            +"press ENTER  stop")
-    
-    if x =="":
-        break
-print('Bye')
+# Create GUI
+root = tk.Tk()
+root.title("Weather App")
+
+# Add entry widget
+city_entry = tk.Entry(root, width=50)
+city_entry.pack()
+
+# Add button
+get_weather_button = tk.Button(root, text="Get Weather", command=show_weather)
+get_weather_button.pack()
+
+root.mainloop()
